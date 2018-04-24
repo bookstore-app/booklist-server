@@ -14,7 +14,7 @@ client.on('error', err => console.errer(err));
 
 app.use(cors());
 
-app.get('/'), (req, res) => res.redirect(CLIENT_URL));
+app.get('/', (req, res) => res.redirect(CLIENT_URL));
 app.get ('*', (req, res) => res.sendStatus('you didnt get there'));
 
 app.get('/books', (req, res) => {
