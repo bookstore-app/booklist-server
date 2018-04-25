@@ -14,13 +14,13 @@ client.on('error', err => console.errer(err));
 
 app.use(cors());
 
-app.get('/'), (req, res) => res.redirect(CLIENT_URL));
+app.get('/', (req, res) => res.redirect(CLIENT_URL));
 app.get ('*', (req, res) => res.sendStatus('you didnt get there'));
 
-app.get('/books', (req, res) => {
+app.get('/api/v1/books', (req, res) => {
   client.query('SELECT * from books;')
-  .then(results => res.send(results.row))
-  .catch(console.error);
+    .then(results => res.send(results.row))
+    .catch(console.error);
 });
 
 
