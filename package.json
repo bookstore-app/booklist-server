@@ -1,7 +1,6 @@
 {
   "name": "booklist-server",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,5 +21,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "pg": "^7.4.1"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
