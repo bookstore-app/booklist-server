@@ -1,5 +1,3 @@
-import { fstat } from 'fs';
-
 'use strict';
 
 const cors = require('cors');
