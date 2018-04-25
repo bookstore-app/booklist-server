@@ -1,5 +1,9 @@
+import { fstat } from 'fs';
+
 'use strict';
 
+const cors = require('cors');
+const fs = require('fs');
 const cors = require('cors');
 const pg = require('pg');
 const express = require('express');
@@ -28,16 +32,34 @@ app.get('*', (req, res) => res.sendStatus('you didnt get there'));
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
+function loadBooks() {
+fstat.readFile('../booklist-client/data/books.json', 'utf8', (err, fd) => {
+  JSON.parse(fd).forEach(ele => {
+    client.query(
+      'INSERT INTO books (author, title, isbn, image_url, description) VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING', [ele.author, ele.title, ele.isbn, ele.image_url, ele.description]
+    )
+  })
+})
+}
 
 function loadDB() {
   client.query(`
-  CREATE TABLE IF NOT EXISTS 
+  CREATE TABLE IF NOT EXISTS
   books (
-  book_id SERIAL PRIMARY KEY, 
-  title VARCHAR(255) NOT NULL, 
-  author VARCHAR(255) NOT NULL, 
-  isbn VARCHAR(255) NOT NULL, 
-  image_url VARCHAR (255) NOT NULL, 
-  description TEXT NOT NULL;)`
-  );
+    book_id SERIAL PRIMARY KEY,
+    author VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    isbn VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL
+  );`
+  )
+    .then(data => {
+      loadBooks(data);
+    })
+    .catch(err => {
+      console.error(err);
+    });
 }
+
+loadDB();
