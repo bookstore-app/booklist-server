@@ -2,8 +2,9 @@ import { fstat } from 'fs';
 
 'use strict';
 
-const cors =require('cors');
+const cors = require('cors');
 const fs = require('fs');
+const cors = require('cors');
 const pg = require('pg');
 const express = require('express');
 const app = express();
@@ -25,7 +26,8 @@ app.get('/api/v1/books', (req, res) => {
     .then(results => res.send(results.rows))
     .catch(console.error);
 });
-app.get ('*', (req, res) => res.sendStatus('you didnt get there'));
+
+app.get('*', (req, res) => res.sendStatus('you didnt get there'));
 
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
