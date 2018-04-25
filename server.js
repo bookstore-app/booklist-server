@@ -40,6 +40,10 @@ fstat.readFile('../booklist-client/data/books.json', 'utf8', (err, fd) => {
 })
 }
 
+app.get('/new')
+
+
+
 function loadDB() {
   client.query(`
   CREATE TABLE IF NOT EXISTS
