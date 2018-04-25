@@ -1,6 +1,6 @@
 'use strict';
 
-const cors =require('cors');
+const cors = require('cors');
 const pg = require('pg');
 const express = require('express');
 const app = express();
@@ -22,14 +22,22 @@ app.get('/api/v1/books', (req, res) => {
     .then(results => res.send(results.rows))
     .catch(console.error);
 });
-app.get ('*', (req, res) => res.sendStatus('you didnt get there'));
+
+app.get('*', (req, res) => res.sendStatus('you didnt get there'));
 
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 
-// function loadBooks() => {
-//   client.query(`
-//   CREATE DATABASE IF NOT EXISTS
-//   book_app`)
-// }
+function loadDB() {
+  client.query(`
+  CREATE TABLE IF NOT EXISTS 
+  books (
+  book_id SERIAL PRIMARY KEY, 
+  title VARCHAR(255) NOT NULL, 
+  author VARCHAR(255) NOT NULL, 
+  isbn VARCHAR(255) NOT NULL, 
+  image_url VARCHAR (255) NOT NULL, 
+  description TEXT NOT NULL;)`
+  );
+}
